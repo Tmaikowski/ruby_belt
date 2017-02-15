@@ -1,0 +1,21 @@
+<h3>Others who added <%= @song.artist %> - <%= @song.title %></h3>
+<a href="/songs">Dashboard</a> <%= link_to 'Logout', controller: 'users', action: 'logout' %>
+<p></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Times Added</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <% if @psong.key? user.playlist.id %>
+      <tr>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+        <td><%= @psong[user.playlist.id] %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

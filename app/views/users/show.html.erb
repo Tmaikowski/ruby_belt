@@ -1,0 +1,21 @@
+<h3><%= @user.first_name %> <%= @user.last_name %>'s Playlist</h3>
+<a href="/songs">Dashboard</a> <%= link_to 'Logout', controller: 'users', action: 'logout' %>
+<p></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Title</th>
+      <th>Times Added</th>
+    </thead>
+    <tbody>
+      <% @songs.each do |song| %>
+        <tr>
+          <td><%= song[0][1] %></td>
+          <td><%= song[0][2] %></td>
+          <td><%= song[1] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>

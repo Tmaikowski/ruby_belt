@@ -1,0 +1,55 @@
+<% if flash[:error] %>
+  <p><%= flash[:error] %></p>
+<% end %>
+
+<h3>Hello, <%= @user.first_name %> <%= @user.last_name %>!</h3>
+<%= link_to 'My Playlist', controller: 'users', action: 'show', id: session[:user_id] %>
+<%= link_to 'Logout', controller: 'users', action: 'logout' %>
+<p></p>
+
+<p>All the songs in our hub:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Title</th>
+      <th>No. of Times Song Has Been Added</th>
+      <th>Add to Playlist</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @songs.each do |song| %>
+      <tr>
+        <td><%= song.artist %></td>
+        <td><a href="/songs/<%= song.id %>"><%= song.title %></a></td>
+        <% if @song_count.key? song.id %>
+          <td><%= @song_count[song.id] %></td>
+        <% else %>
+          <td>0</td>
+        <% end %>
+        <td>
+          <%= form_for @psong, url: '/psongs' do |f| %>
+            <%= f.hidden_field :song_id, value: song.id %>
+            <%= f.submit 'Add' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<% if flash[:notice] %>
+  <p><%= flash[:notice].join(", ") %></p>
+<% end %>
+<%= form_for @song, url: '/songs' do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div><br>
+  <div>
+    <%= f.label :artist %>
+    <%= f.text_field :artist %>
+  </div><br>
+  <%= f.submit 'Add Song' %>
+<% end %>

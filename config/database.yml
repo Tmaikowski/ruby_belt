@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: belt_exam_development
+
+test:
+  <<: *default
+  database: belt_exam_test
+
+production:
+  <<: *default
+  database: belt_exam_production
+  username: belt_exam
+  password: <%= ENV['BELT_EXAM_DATABASE_PASSWORD'] %>

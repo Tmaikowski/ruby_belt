@@ -1,0 +1,50 @@
+<h2>Welcome</h2>
+
+<h3>Register</h3>
+<% if flash[:notice] %>
+  <% flash[:notice].each do |key, val| %>
+    <p><%= key %> <%= val.join(", ") %></p>
+  <% end %>
+<% end %>
+<%= form_for @user, url: { action: "create" } do |f| %>
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div><br>
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div><br>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div><br>
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div><br>
+  <div>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div><br>
+  <%= f.submit 'Register' %>
+<% end %>
+
+<h3>Login</h3>
+<% if flash[:email_error] %>
+  <p><%= flash[:email_error] %></p>
+<% end %>
+<% if flash[:pw_error] %>
+  <p><%= flash[:pw_error] %></p>
+<% end %>
+<%= form_for :user, url: { action: "login" } do |f| %>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div><br>
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div><br>
+  <%= f.submit 'Login' %>
+<% end %>
